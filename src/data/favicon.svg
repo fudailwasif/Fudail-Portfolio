@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background with slightly rounded corners -->
+  <rect width="32" height="32" rx="6" fill="#0A0A0A"/>
+  
+  <!-- Thick geometric 'F' -->
+  <path d="M8 24V8H16V11H11.5V14.5H15V17.5H11.5V24H8Z" fill="white"/>
+  
+  <!-- Sharp forward slash '/' -->
+  <path d="M17 24L23 8H20L14 24H17Z" fill="white"/>
+</svg>
