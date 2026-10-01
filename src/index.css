@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.font-geist {
+  font-family: 'Geist Variable', sans-serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+::selection {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #333333;
+  color: #ffffff;
+}
