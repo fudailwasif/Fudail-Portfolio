@@ -50,10 +50,9 @@ const Contact = () => {
           <a
             href="mailto:fudailwasif.dev@gmail.com"
             className="contact-link group relative text-xl md:text-3xl font-medium tracking-tight">
-            {' '}
-            fudailwasif.dev@gmail.com{' '}
-            <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />{' '}
-          </a>{' '}
+            fudailwasif.dev@gmail.com
+            <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+          </a>
           <div className="flex gap-8">
             {' '}
             <a
