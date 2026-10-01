@@ -78,7 +78,7 @@ const Contact = () => {
               GitHub
             </a>
             <a
-              href="www.linkedin.com/in/fudailwasif"
+              href="https://www.linkedin.com/in/fudailwasif"
               target="_blank"
               rel="noreferrer"
               className="contact-link text-sm md:text-base text-gray-400 hover:text-white transition-colors duration-300">
