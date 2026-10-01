@@ -39,6 +39,6 @@ export const projectsData = [
       'Looking for a project that needs a clean frontend, responsive UI and a developer who cares about the details.',
     tags: ['React', 'UI Engineering', 'Open to work'],
     colSpanClass: 'md:col-span-7',
-    link: 'fudailwasif.dev@gmail.com',
+    link: '#contact',
   },
 ];
