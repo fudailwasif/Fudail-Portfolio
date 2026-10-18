@@ -19,13 +19,14 @@ npm run build
 npm run preview
 ```
 
+![Fudail Wasif portfolio homepage screenshot](src/assets/fudail1.png)
+
+
 There is no test framework configured. Lint and build are the repository's validation commands.
 
 ## Selected Work
 
 Three editorial project rows pair oversized titles with screenshots, project summaries, engineering notes, expandable details, and live/source actions. Motion for React handles row emphasis, image and title hover effects, and video crossfades.
-
-![Fudail Wasif portfolio homepage screenshot](src/assets/fudail1.png)
 
 Each project has a compact 1280 × 720 H.264 MP4 preview (each under 1.2 MB) in `public/videos/`: `high-grade-inspection.mp4`, `gitscout.mp4`, and `rick-owens.mp4`. On eligible desktop fine-pointer devices, hovering a row or focusing its image/title link requests muted, looping playback. Videos use `preload="none"`, receive a source only when requested, and play one at a time; playback stops when the row is left or leaves the viewport. Responsive WebP screenshots (640, 960, and 1440px variants) remain visible before playback and serve as fallbacks when video cannot play or previews are disabled. Previews are disabled for reduced motion, limited device resources, and constrained connections.
 
