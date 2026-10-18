@@ -1,0 +1,3 @@
+export default function Philosophy() {
+  return <section className="philosophy-section section-shell" aria-labelledby="philosophy-title"><p className="eyebrow mono">04 / How I approach the work</p><h2 id="philosophy-title" data-split>Make it work.<br /><span className="muted">Make it clear.</span><br />Keep improving.</h2><div className="philosophy-bottom"><span className="philosophy-symbol" aria-hidden="true">↗</span><p data-reveal>Start by understanding the problem. Build a working solution. Then refine the details — the layout, the interaction, the component that could be easier to read. Progress is a practice.</p></div></section>;
+}

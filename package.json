@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/geist": "^5.3.0",
-    "@fontsource/poppins": "^5.3.0",
+    "@fontsource-variable/roboto-mono": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "gsap": "^3.15.0",
+    "locomotive-scroll": "5.0.1",
+    "motion": "^14.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3"

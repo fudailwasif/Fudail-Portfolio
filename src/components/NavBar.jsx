@@ -1,173 +1,118 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { navigation, profile } from '../data/profile';
+import { hasLimitedResources } from '../lib/motion';
+import Arrow from './Arrow';
 
-const NavBar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navRef = useRef(null);
-  const mobileMenuRef = useRef(null);
+const panel = {
+  hidden: { y: '-100%' },
+  visible: { y: 0, transition: { duration: 0.42, ease: [0.65, 0, 0.35, 1], staggerChildren: 0.055, delayChildren: 0.12 } },
+  exit: { y: '-100%', transition: { duration: 0.32, ease: [0.65, 0, 0.35, 1] } },
+};
+const item = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.32 } },
+  exit: { opacity: 0, y: -10, transition: { duration: 0.14 } },
+};
+const links = { hidden: {}, visible: { transition: { staggerChildren: 0.065, delayChildren: 0.13 } } };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+export default function NavBar({ navigate, pause, resume }) {
+  const dialog = useRef(null);
+  const trigger = useRef(null);
+  const pendingNavigation = useRef(null);
+  const closing = useRef(false);
+  const [open, setOpen] = useState(false);
+  const [reduce, setReduce] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches || hasLimitedResources());
+
+  const finishClose = useCallback(() => {
+    if (!dialog.current?.open) return;
+    dialog.current.close();
+    closing.current = false;
+    resume();
+    trigger.current?.focus({ preventScroll: true });
+    const hash = pendingNavigation.current;
+    pendingNavigation.current = null;
+    if (hash) navigate(hash);
+  }, [navigate, resume]);
+
+  const close = useCallback(hash => {
+    if (!dialog.current?.open || closing.current) return;
+    closing.current = true;
+    pendingNavigation.current = hash || null;
+    setOpen(false);
   }, []);
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    // Cleanup on unmount
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
-
-  useLayoutEffect(() => {
-    gsap.set(mobileMenuRef.current, { yPercent: -100 });
-
-    let mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from('.nav-brand', {
-        y: -20,
-        opacity: 0,
-        duration: 0.8
-      })
-      .from('.nav-item', {
-        y: -20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1
-      }, '-=0.6');
-    }, navRef);
-
-    return () => mm.revert();
-  }, []);
-
-  useEffect(() => {
-    let mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      if (isMobileMenuOpen) {
-        gsap.to(mobileMenuRef.current, {
-          yPercent: 0,
-          duration: 0.6,
-          ease: 'power3.inOut'
-        });
-        gsap.fromTo('.mobile-nav-item', 
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.3, ease: 'power2.out' }
-        );
-      } else {
-        gsap.to(mobileMenuRef.current, {
-          yPercent: -100,
-          duration: 0.5,
-          ease: 'power3.inOut'
-        });
-      }
-    });
-
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      if (isMobileMenuOpen) {
-        gsap.set(mobileMenuRef.current, { yPercent: 0 });
-        gsap.set('.mobile-nav-item', { y: 0, opacity: 1 });
-      } else {
-        gsap.set(mobileMenuRef.current, { yPercent: -100 });
-      }
-    });
-
-    return () => mm.revert();
-  }, [isMobileMenuOpen]);
-
-  const handleScrollTo = (e, id) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    
-    // Slight delay to allow mobile menu to close before scrolling
-    setTimeout(() => {
-      const element = document.getElementById(id);
-      if (element) {
-        const offsetTop = element.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    }, isMobileMenuOpen ? 500 : 0);
+  const show = () => {
+    if (dialog.current?.open) return;
+    pause();
+    dialog.current.showModal();
+    setOpen(true);
   };
 
-  const navLinks = [
-    { name: 'Work', href: 'work' },
-    { name: 'About', href: 'about' },
-    { name: 'Skills', href: 'skills' },
-    { name: 'Contact', href: 'contact' }
-  ];
+  useLayoutEffect(() => {
+    if (open) dialog.current?.querySelector('.menu-top button')?.focus();
+  }, [open]);
 
-  return (
-    <>
-      <header
-        ref={navRef}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-out px-10 md:px-20 flex justify-between items-center ${
-          isScrolled ? 'bg-[#0A0A0A] border-b border-neutral-900 py-6' : 'bg-transparent border-b border-transparent py-10'
-        }`}
-      >
-        <div className="nav-brand font-sans font-bold text-lg md:text-xl tracking-tighter text-white z-[60]">
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); setIsMobileMenuOpen(false); }}>
-            F/
-          </a>
-        </div>
+  const containFocus = event => {
+    if (event.key !== 'Tab') return;
+    const controls = [...dialog.current.querySelectorAll('button, a[href]')];
+    const first = controls[0];
+    const last = controls.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-12">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={`#${link.href}`}
-              onClick={(e) => handleScrollTo(e, link.href)}
-              className="nav-item text-[10px] uppercase tracking-[0.2em] font-poppins text-gray-400 hover:text-white transition-colors duration-300 relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </a>
-          ))}
-        </nav>
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const element = dialog.current;
+    const onDesktop = () => { if (desktop.matches) close(); };
+    const onReduced = () => setReduce(reduced.matches || hasLimitedResources());
+    desktop.addEventListener('change', onDesktop);
+    reduced.addEventListener('change', onReduced);
+    navigator.connection?.addEventListener('change', onReduced);
+    return () => {
+      desktop.removeEventListener('change', onDesktop);
+      reduced.removeEventListener('change', onReduced);
+      navigator.connection?.removeEventListener('change', onReduced);
+      element?.close();
+      resume();
+    };
+  }, [close, resume]);
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden nav-brand z-[60] text-[10px] uppercase tracking-[0.2em] font-poppins text-white focus:outline-none"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? 'Close' : 'Menu'}
-        </button>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div
-        ref={mobileMenuRef}
-        className="fixed inset-0 bg-[#0A0A0A] z-40 flex flex-col justify-center items-center px-10 invisible"
-        style={{ visibility: 'visible' /* Prevent flicker before GSAP sets it */ }}
-      >
-        <nav className="flex flex-col items-center gap-10">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={`#${link.href}`}
-              onClick={(e) => handleScrollTo(e, link.href)}
-              className="mobile-nav-item text-4xl font-sans font-bold tracking-tighter text-white hover:text-gray-400 transition-colors duration-300"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </>
-  );
-};
-
-export default NavBar;
+  return <>
+    <header className="site-header">
+      <a href="#top" className="wordmark">F/W.<span className="sr-only"> Fudail Wasif, back to top</span></a>
+      <nav className="desktop-nav" aria-label="Main navigation">
+        {navigation.map(link => <a className="text-link" key={link.id} href={`#${link.id}`}>{link.label}</a>)}
+      </nav>
+      <span className="header-location mono">Karachi, PK</span>
+      <button ref={trigger} className="menu-toggle" aria-haspopup="dialog" aria-expanded={open} aria-controls="mobile-navigation" onClick={show}>Menu <span aria-hidden="true">+</span></button>
+    </header>
+    <dialog ref={dialog} id="mobile-navigation" className="mobile-menu" aria-labelledby="menu-title" onKeyDown={containFocus} onCancel={event => { event.preventDefault(); close(); }}>
+      <AnimatePresence initial={false} onExitComplete={finishClose}>
+        {open && <motion.div key="menu-panel" className="mobile-menu-panel" variants={panel} initial={reduce ? false : 'hidden'} animate="visible" exit={reduce ? { opacity: 0, transition: { duration: 0 } } : 'exit'}>
+          <div className="menu-top">
+            <span id="menu-title" className="wordmark">F/W.</span>
+            <button onClick={() => close()} aria-label="Close menu">Close <span aria-hidden="true">×</span></button>
+          </div>
+          <motion.nav aria-label="Mobile navigation" variants={reduce ? undefined : links} initial={reduce ? false : 'hidden'} animate="visible">
+            {navigation.map((link, index) => <motion.a
+              variants={reduce ? undefined : item}
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={event => { event.preventDefault(); close(`#${link.id}`); }}>
+              <span className="mono">0{index + 1}</span>{link.label}<Arrow />
+            </motion.a>)}
+          </motion.nav>
+          <p className="mono menu-availability">{profile.availability}</p>
+        </motion.div>}
+      </AnimatePresence>
+    </dialog>
+  </>;
+}
