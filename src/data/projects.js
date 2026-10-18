@@ -28,7 +28,7 @@ export const projectsData = [
     description: 'Small applications built to practice DOM manipulation, browser storage, APIs, state and UI logic.',
     tags: ['ES6+', 'DOM', 'APIs'],
     colSpanClass: 'md:col-span-5',
-    link: 'https://github.com/fvyalwayshigh-sys/JavaScript-React-Projects-',
+    link: 'https://github.com/fudailwasif/JavaScript-React-Projects-',
   },
   {
     id: '04',

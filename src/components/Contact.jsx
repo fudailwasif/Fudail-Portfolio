@@ -56,7 +56,7 @@ const Contact = () => {
           <div className="flex gap-8">
             {' '}
             <a
-              href="https://github.com/fvyalwayshigh-sys"
+              href="https://github.com/fudailwasif"
               target="_blank"
               rel="noreferrer"
               className="contact-link text-sm md:text-base text-gray-400 hover:text-white transition-colors duration-300">
