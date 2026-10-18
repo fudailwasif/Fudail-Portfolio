@@ -56,7 +56,7 @@ To run this project locally, follow these steps.
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/fvyalwayshigh-sys/Fudail-Portfolio.git
+git clone https://github.com/fudailwasif/Fudail-Portfolio.git
 ```
 
 **2. Navigate to the project directory**
@@ -99,7 +99,7 @@ I enjoy experimenting with new technologies, solving programming problems, and t
 ## Connect With Me
 
 - **Portfolio:** [fudail-portfolio-mauve.vercel.app](https://fudail-portfolio-mauve.vercel.app/)
-- **GitHub:** [@fvyalwayshigh-sys](https://github.com/fvyalwayshigh-sys)
+- **GitHub:** [@fudailwasif](https://github.com/fudailwasif)
 
 ---
 
