@@ -1,6 +1,6 @@
 # Fudail Wasif — Frontend & React Developer
 
-An editorial, monochrome portfolio built with React 19, Vite 8, Tailwind CSS v4, GSAP, Motion for React, and Locomotive Scroll 5.0.1. It is a client-only single page with in-document navigation; there is no router or backend.
+An editorial, monochrome portfolio built with React 19, Vite 8, React Router, Tailwind CSS v4, GSAP, Motion for React, and Locomotive Scroll 5.0.1. The homepage keeps its in-document navigation, and unmatched paths show a custom 404 page. There is no backend.
 
 [View the portfolio](https://fudailwasif.vercel.app/)
 
@@ -23,6 +23,10 @@ npm run preview
 
 
 There is no test framework configured. Lint and build are the repository's validation commands.
+
+## Routing
+
+React Router renders the portfolio at `/` and the custom 404 page for unmatched paths. Homepage section links keep their existing hash navigation and smooth scrolling. `vercel.json` rewrites direct requests to `index.html` so refreshing an unmatched path loads the client-side 404 page.
 
 ## Selected Work
 
@@ -48,7 +52,7 @@ The type-led intro runs on page load when motion and device resources permit. It
 
 - Semantic sections, a skip link, one H1, visible focus styles, descriptive image alternatives, labeled links, and native expandable project details support keyboard and assistive-technology use. The mobile menu is a native modal dialog with Escape handling, a Tab loop, focus restoration, and scroll unlocking before navigation.
 - Layouts adapt at 1024px and 768px, including the project rows and mobile navigation. Reduced-motion preferences suppress entrance animation and video previews; data-saving, low-resource, or slow-connection signals also limit heavier effects.
-- Project screenshots use responsive WebP sources, lazy loading, and async decoding. Videos are requested only on interaction. The locally bundled Latin Roboto Mono variable font uses `font-display: swap`.
-- `vite.config.js` inserts a semantic HTML fallback from the same profile and project data, so descriptions, screenshots, and links remain available without JavaScript. It also emits JSON-LD for the person, website, and projects. `index.html` defines canonical, description, robots, Open Graph, and Twitter metadata; `public/robots.txt` references the single-page sitemap.
+- Project screenshots use responsive WebP sources, lazy loading, and async decoding. Videos are requested only on interaction. The locally bundled Latin Montserrat variable font uses `font-display: swap`.
+- `vite.config.js` inserts a semantic HTML fallback for the homepage from the same profile and project data, so descriptions, screenshots, and links remain available without JavaScript. It also emits JSON-LD for the person, website, and projects. `index.html` defines canonical, description, robots, Open Graph, and Twitter metadata; `public/robots.txt` references the single-page sitemap.
 
 Core content is in `src/data/profile.js` and `src/data/projects.js`; section components are in `src/components/`. Global typography, layout, breakpoints, and focus styles are in `src/index.css`.

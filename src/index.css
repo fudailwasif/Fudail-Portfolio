@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'Roboto Mono Variable';
+  font-family: 'Montserrat Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 400 700;
-  src: url('@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  src: url('@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2') format('woff2');
 }
 
 /* Hide scrollbar while preserving scrolling */
@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
 }
 
 :root {
-  font-family: 'Roboto Mono Variable', monospace;
+  font-family: 'Montserrat Variable', sans-serif;
   color: #efefeb;
   background: #0a0a0a;
   font-synthesis: none;
@@ -88,7 +88,7 @@ h2,
 h3,
 .wordmark,
 .about-mark {
-  font-family: 'Roboto Mono Variable', monospace;
+  font-family: 'Montserrat Variable', sans-serif;
 }
 h2 {
   font-size: clamp(40px, 5vw, 76px);
@@ -113,7 +113,7 @@ ul {
   padding-inline: var(--gutter);
 }
 .mono {
-  font: 400 11px/1.6 'Roboto Mono Variable', monospace;
+  font: 400 11px/1.6 'Montserrat Variable', sans-serif;
   letter-spacing: 0.065em;
   text-transform: uppercase;
 }
@@ -191,7 +191,7 @@ ul {
 }
 .preloader-wordmark {
   display: block;
-  font-family: 'Roboto Mono Variable', monospace;
+  font-family: 'Montserrat Variable', sans-serif;
   font-size: clamp(90px, 16vw, 210px);
   font-weight: 600;
   letter-spacing: -0.1em;
@@ -295,7 +295,7 @@ ul {
 
 .custom-cursor-label {
   color: inherit;
-  font: 700 11px/1 'Roboto Mono Variable', monospace;
+  font: 700 11px/1 'Montserrat Variable', sans-serif;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
@@ -394,7 +394,7 @@ ul {
   gap: 24px;
   padding: 20px 0;
   border-bottom: 1px solid #bdbdb6;
-  font-family: 'Roboto Mono Variable', monospace;
+  font-family: 'Montserrat Variable', sans-serif;
   font-size: clamp(32px, 8vw, 54px);
   letter-spacing: -0.05em;
 }
@@ -792,7 +792,7 @@ ul {
   align-items: end;
 }
 .philosophy-symbol {
-  font-family: 'Roboto Mono Variable', monospace;
+  font-family: 'Montserrat Variable', sans-serif;
   font-size: 110px;
   line-height: 0.8;
 }
@@ -860,6 +860,155 @@ ul {
 }
 .site-footer a {
   color: var(--paper);
+}
+
+.not-found {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 88px 1fr auto;
+  background: var(--ink);
+  color: var(--paper);
+}
+.not-found-header,
+.not-found-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.not-found-header {
+  border-bottom: 1px solid var(--line);
+}
+.not-found-header-label,
+.not-found-footer {
+  color: var(--muted);
+}
+.not-found-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(20px, 3vh, 42px) clamp(28px, 4vh, 56px);
+}
+.not-found-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+}
+.not-found-center {
+  width: 100%;
+  margin-block: auto;
+  padding-block: clamp(28px, 4vh, 56px);
+  animation: not-found-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.not-found-number {
+  width: 100%;
+  font-size: clamp(176px, 33vw, 500px);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.115em;
+  text-align: center;
+  white-space: nowrap;
+}
+.not-found-zero {
+  color: var(--paper);
+}
+@supports (-webkit-text-stroke: 2px var(--paper)) {
+  .not-found-zero {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--paper);
+  }
+}
+.not-found-message {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  align-items: end;
+  gap: 28px 48px;
+  margin-top: clamp(32px, 4vw, 70px);
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.not-found-message > div {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 2vw, 30px);
+}
+.not-found-asterisk {
+  color: var(--muted);
+  font-size: clamp(22px, 2.5vw, 34px);
+  line-height: 1.2;
+}
+.not-found-message h2 {
+  font-size: clamp(32px, 4.1vw, 68px);
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+.not-found-message p {
+  max-width: 320px;
+  color: var(--muted);
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.7;
+}
+.not-found-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  flex-wrap: wrap;
+}
+.not-found-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  min-height: 64px;
+  padding: 16px 22px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+}
+.not-found-primary:hover {
+  background: transparent;
+  color: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--paper);
+}
+.not-found-secondary {
+  font-size: 13px;
+}
+.not-found-secondary .arrow {
+  width: 18px;
+  height: 18px;
+}
+.not-found-footer {
+  min-height: 68px;
+  border-top: 1px solid var(--line);
+}
+@keyframes not-found-enter {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .not-found { grid-template-rows: 76px 1fr auto; }
+  .not-found-header-label { font-size: 9px; }
+  .not-found-main { padding-block: 24px 48px; }
+  .not-found-top { font-size: 9px; }
+  .not-found-center { padding-block: 72px; }
+  .not-found-number { font-size: clamp(150px, 45vw, 260px); }
+  .not-found-zero { -webkit-text-stroke-width: 1.5px; }
+  .not-found-message {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 52px;
+    padding-top: 24px;
+  }
+  .not-found-message h2 { font-size: clamp(30px, 7vw, 48px); }
+  .not-found-message p { padding-left: 42px; }
+  .not-found-actions { align-items: flex-start; gap: 18px; }
+  .not-found-primary { min-height: 60px; width: 100%; }
+  .not-found-footer { min-height: 64px; font-size: 9px; }
 }
 
 @media (min-width: 1800px) {
