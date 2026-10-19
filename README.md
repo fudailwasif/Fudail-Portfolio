@@ -2,7 +2,7 @@
 
 An editorial, monochrome portfolio built with React 19, Vite 8, Tailwind CSS v4, GSAP, Motion for React, and Locomotive Scroll 5.0.1. It is a client-only single page with in-document navigation; there is no router or backend.
 
-[View the portfolio](https://fudail-portfolio-mauve.vercel.app/)
+[View the portfolio](https://fudailwasif.vercel.app/)
 
 ## Run locally
 
